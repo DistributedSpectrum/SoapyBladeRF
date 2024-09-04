@@ -1533,6 +1533,37 @@ void bladeRF_SoapySDR::writeSetting(const std::string &key, const std::string &v
             }
         }
     }
+    else if (key == "feature")
+    {
+        if (value == "default") {
+            int ret = bladerf_enable_feature(_dev, bladerf_feature::BLADERF_FEATURE_DEFAULT, true);
+            if (ret != 0)
+            {
+                SoapySDR::logf(SOAPY_SDR_ERROR, "bladerf_enable_feature %s) returned %s",
+                               value.c_str(),
+                               _err2str(ret).c_str());
+                throw std::runtime_error("writeSetting() " + _err2str(ret));
+            }
+        } else if (value == "oversample") {
+            int ret = bladerf_enable_feature(_dev, bladerf_feature::BLADERF_FEATURE_OVERSAMPLE, true);
+            if (ret != 0)
+            {
+                SoapySDR::logf(SOAPY_SDR_ERROR, "bladerf_enable_feature %s) returned %s",
+                               value.c_str(),
+                               _err2str(ret).c_str());
+                throw std::runtime_error("writeSetting() " + _err2str(ret));
+            }
+        } else if (value == "oversample_decimate") {
+            int ret = bladerf_enable_feature(_dev, bladerf_feature::BLADERF_FEATURE_OVERSAMPLE_DECIMATE, true);
+            if (ret != 0)
+            {
+                SoapySDR::logf(SOAPY_SDR_ERROR, "bladerf_enable_feature %s) returned %s",
+                               value.c_str(),
+                               _err2str(ret).c_str());
+                throw std::runtime_error("writeSetting() " + _err2str(ret));
+            }
+        }
+    }
     else
     {
         throw std::runtime_error("writeSetting(" + key + ") unknown setting");
