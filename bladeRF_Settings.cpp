@@ -1554,6 +1554,7 @@ void bladeRF_SoapySDR::writeSetting(const std::string &key, const std::string &v
                 throw std::runtime_error("writeSetting() " + _err2str(ret));
             }
         } else if (value == "oversample_decimate") {
+            SoapySDR::logf(SOAPY_SDR_WARNING, "bladerf enable feature oversample decimate");
             int ret = bladerf_enable_feature(_dev, bladerf_feature::BLADERF_FEATURE_OVERSAMPLE_DECIMATE, true);
             if (ret != 0)
             {
